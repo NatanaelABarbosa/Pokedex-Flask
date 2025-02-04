@@ -9,11 +9,13 @@ class PokedexRepository:
     @staticmethod
     def fetchAll():
         return Pokedex.query.order_by(Pokedex.id)
-    
+        
     @staticmethod
     def create(data: dict, status: list):
         try:
             pokemon = Pokedex(nome=data['nome'], tipo=data['tipo'], abilidade=data['abilidade'])
+            
+            print(pokemon)
             
             db.session.add(pokemon)
             db.session.commit()
