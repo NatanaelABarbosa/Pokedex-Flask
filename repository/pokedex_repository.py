@@ -3,8 +3,8 @@ from models.pokedex import Pokedex
 
 class PokedexRepository:
     @staticmethod
-    def fetch():
-        pass
+    def fetch(id: int):
+       return Pokedex.query.filter_by(id=id).first()
     
     @staticmethod
     def fetchAll():

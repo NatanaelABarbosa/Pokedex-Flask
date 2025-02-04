@@ -16,7 +16,9 @@
                         <td>{{ pokemon.nome }}</td>
                         <td>{{ pokemon.tipo }}</td>
                         <td>{{ pokemon.abilidade }}</td>
-                        <td>Lorem Ipsum</td>
+                        <td> 
+                            <a class="btn btn-primary" href="{{ url_for('edit', id=pokemon.id) }}">E</a>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
