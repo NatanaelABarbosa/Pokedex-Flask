@@ -1,14 +1,26 @@
-from main import app, db
+from main import app
 from flask import request, redirect, render_template, url_for, flash
 from form.pokedex_form import PokedexForm
+from repository.pokedex_repository import PokedexRepository
 
 @app.route('/')
 def index():
-    return render_template('pokedex.html', titulo="Pokemons capturados")
+    pokemons = PokedexRepository.fetchAll()
+    return render_template('pokedex.html', titulo="Pokemons capturados", pokemons=pokemons)
 
 @app.route('/add')
 def create():
     form = PokedexForm()
+    
+    data = {
+        'nome': form.nome.data,
+        'tipo': form.tipo.data,
+        'abilidade': form.abilidade.data
+    }
+    
+    status = {}
+    
+    PokedexRepository.create(data, status)
 
     return render_template('add.html', titulo="Adicionar Pokemon", form=form)
 

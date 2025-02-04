@@ -3,17 +3,17 @@ from wtforms import StringField, SelectField
 from wtforms.validators import DataRequired, Length
 
 class PokedexForm(FlaskForm):
-    name = StringField(
+    nome = StringField(
         "Nome",
         validators=[DataRequired(), Length(min=1, max=50)]
     )
     
-    ability = StringField(
+    abilidade = StringField(
         "Abilidade",
         validators=[DataRequired(), Length(min=1, max=20)]
     )
     
-    type = SelectField('Tipo do Pokémon', choices=[
+    tipo = SelectField('Tipo do Pokémon', choices=[
             ('fogo', 'Fogo'),
             ('agua', 'Água'),
             ('planta', 'Planta'),

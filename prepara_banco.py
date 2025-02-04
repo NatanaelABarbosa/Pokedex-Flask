@@ -18,6 +18,8 @@ except mysql.connector.Error as err:
 cursor = conn.cursor()
 
 cursor.execute("DROP DATABASE IF EXISTS `pokedex`;")
+cursor.execute("DROP DATABASE IF EXISTS `treinadores`;")
+cursor.execute("DROP DATABASE IF EXISTS `pokemon_status`;")
 
 cursor.execute("CREATE DATABASE `pokedex`;")
 
@@ -26,7 +28,7 @@ cursor.execute("USE `pokedex`;")
 # criando tabelas
 TABLES = {}
 TABLES['Pokemon'] = ('''
-      CREATE TABLE `pokemon` (
+      CREATE TABLE `pokedex` (
       `id` int(11) NOT NULL AUTO_INCREMENT,
       `nome` varchar(50) NOT NULL,
       `tipo` varchar(15) NOT NULL,
@@ -45,11 +47,11 @@ TABLES['Status'] = ('''
       `spdef` int(3) NOT NULL,
       `spd` int(3) NOT NULL,
       PRIMARY KEY (`id`),
-      FOREIGN KEY (`pokemon_id`) REFERENCES `pokemon`(`id`) ON DELETE CASCADE
+      FOREIGN KEY (`pokemon_id`) REFERENCES `pokedex`(`id`) ON DELETE CASCADE
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;''')
 
 TABLES['Treinadores'] = ('''
-      CREATE TABLE `Treinadores` (
+      CREATE TABLE `treinadores` (
       `nome` varchar(20) NOT NULL,
       `nickname` varchar(8) NOT NULL,
       `senha` varchar(100) NOT NULL,

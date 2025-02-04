@@ -7,7 +7,7 @@ SQLALCHEMY_DATABASE_URI = \
         SGBD = 'mysql+mysqlconnector',
         usuario = 'root',
         senha = 'N4ellean.',
-        servidor = 'localhoost',
+        servidor = 'localhost',
         database = 'pokedex',
     )
     

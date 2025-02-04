@@ -2,6 +2,15 @@ from main import db
 from models.pokedex import Pokedex
 
 class PokedexRepository:
+    @staticmethod
+    def fetch():
+        pass
+    
+    @staticmethod
+    def fetchAll():
+        return Pokedex.query.order_by(Pokedex.id)
+    
+    @staticmethod
     def create(data: dict, status: list):
         try:
             pokemon = Pokedex(nome=data['nome'], tipo=data['tipo'], abilidade=data['abilidade'])
@@ -12,15 +21,11 @@ class PokedexRepository:
         except:
             return False
     
+    @staticmethod
     def update():
         pass
     
-    def fetch():
-        pass
-    
-    def fetchAll():
-        pass
-    
+    @staticmethod
     def delete():
         pass
     
