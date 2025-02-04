@@ -1,0 +1,19 @@
+{% extends "template.html" %}
+{% block content %}
+    <form id="pokemonForm" method="POST" action="{{ url_for('create') }}">
+        {{ form.csrf_token() }}
+        <div class="mb-3">
+            {{ form.name.label(class="form-label") }}
+            {{ form.name(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.ability.label(class="form-label") }}
+            {{ form.ability(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.type.label(class="form-label") }}
+            {{ form.type(class="form-control") }}
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Adicionar</button>
+    </form>
+{% endblock %}

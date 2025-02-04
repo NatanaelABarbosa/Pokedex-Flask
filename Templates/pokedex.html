@@ -1,0 +1,10 @@
+{% extends "template.html" %}
+{% block content %}
+    <ul class="list-group mt-3">
+        {% for pokemon in pokemons %}
+            <li class="list-group-item">{{ pokemon.name }} - Tipo: {{ pokemon.type }}</li>
+        {% endfor %}
+    </ul>
+
+    <a class="btn btn-dark mt-2" href="{{ url_for('create') }}">Adicionar pokemon</a>
+{% endblock %}
