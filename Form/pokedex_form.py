@@ -3,35 +3,63 @@ from wtforms import StringField, SelectField
 from wtforms.validators import DataRequired, Length
 
 class PokedexForm(FlaskForm):
-    nome = StringField(
+    name = StringField(
         "Nome",
         validators=[DataRequired(), Length(min=1, max=50)]
     )
     
-    abilidade = StringField(
+    ability = StringField(
         "Abilidade",
         validators=[DataRequired(), Length(min=1, max=20)]
     )
     
-    tipo = SelectField('Tipo do Pokémon', choices=[
-            ('fogo', 'Fogo'),
-            ('agua', 'Água'),
-            ('planta', 'Planta'),
-            ('eletrico', 'Elétrico'), 
-            ('inseto', 'Inseto'), 
-            ('sombrio', 'Sombrio'), 
-            ('dragao', 'Dragão'), 
-            ('fada', 'Fada'), 
-            ('lutador', 'Lutador'), 
-            ('voador', 'Voador'), 
-            ('terra', 'Terra'), 
-            ('gelo', 'Gelo'), 
-            ('normal', 'Normal'), 
-            ('venenoso', 'Venenoso'), 
-            ('psiquico', 'Psíquico'), 
-            ('pedra', 'Pedra'), 
-            ('metal', 'Metal'), 
-            ('fantasma', 'Fantasma'), 
+    type_1 = SelectField(
+        'Tipo do Pokémon',
+        choices = [
+            ('Fogo', 'Fogo'),
+            ('Água', 'Água'),
+            ('Planta', 'Planta'),
+            ('Elétrico', 'Elétrico'), 
+            ('Inseto', 'Inseto'), 
+            ('Sombrio', 'Sombrio'), 
+            ('Dragão', 'Dragão'), 
+            ('Fada', 'Fada'), 
+            ('Lutador', 'Lutador'), 
+            ('Voador', 'Voador'), 
+            ('Terra', 'Terra'), 
+            ('Gelo', 'Gelo'), 
+            ('Normal', 'Normal'), 
+            ('Venenoso', 'Venenoso'), 
+            ('Psíquico', 'Psíquico'), 
+            ('Pedra', 'Pedra'), 
+            ('Metal', 'Metal'), 
+            ('Fantasma', 'Fantasma'), 
+        ],
+        validators=[DataRequired()]
+    )
+        
+    type_2 = SelectField(
+        'Tipo 2 do Pokémon',
+        choices = [
+            (None, 'Nulo'),
+            ('Fogo', 'Fogo'),
+            ('Água', 'Água'),
+            ('Planta', 'Planta'),
+            ('Elétrico', 'Elétrico'), 
+            ('Inseto', 'Inseto'), 
+            ('Sombrio', 'Sombrio'), 
+            ('Dragão', 'Dragão'), 
+            ('Fada', 'Fada'), 
+            ('Lutador', 'Lutador'), 
+            ('Voador', 'Voador'), 
+            ('Terra', 'Terra'), 
+            ('Gelo', 'Gelo'), 
+            ('Normal', 'Normal'), 
+            ('Venenoso', 'Venenoso'), 
+            ('Psíquico', 'Psíquico'), 
+            ('Pedra', 'Pedra'), 
+            ('Metal', 'Metal'), 
+            ('Fantasma', 'Fantasma'), 
         ],
         validators=[DataRequired()]
     )

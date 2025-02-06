@@ -1,7 +1,9 @@
 {% extends "template.html" %}
 {% block content %}
-    <form id="pokemonForm" method="POST">
+    <form id="pokemonForm" method="POST" action="{{ url_for('update') }}">
+        <input type="hidden" value="{{ id }}" name="id">
         {{ form.csrf_token() }}
+        <input type="hidden" value="PUT" name="_method">
         <div class="mb-3">
             {{ form.name.label(class="form-label") }}
             {{ form.name(class="form-control") }}
@@ -18,6 +20,6 @@
             {{ form.type_2.label(class="form-label") }}
             {{ form.type_2(class="form-control") }}
         </div>
-        <button type="submit" class="btn btn-primary w-100">Adicionar</button>
+        <button type="submit" class="btn btn-primary w-100">Editar</button>
     </form>
 {% endblock %}

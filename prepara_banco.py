@@ -30,9 +30,10 @@ TABLES = {}
 TABLES['Pokemon'] = ('''
       CREATE TABLE `pokedex` (
       `id` int(11) NOT NULL AUTO_INCREMENT,
-      `nome` varchar(50) NOT NULL,
-      `tipo` varchar(15) NOT NULL,
-      `abilidade` varchar(20) NOT NULL,
+      `name` varchar(50) NOT NULL,
+      `type_1` varchar(15) NOT NULL,
+      `type_2` varchar(15),
+      `ability` varchar(20) NOT NULL,
       PRIMARY KEY (`id`)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;''')
 
@@ -51,10 +52,10 @@ TABLES['Status'] = ('''
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;''')
 
 TABLES['Treinadores'] = ('''
-      CREATE TABLE `treinadores` (
-      `nome` varchar(20) NOT NULL,
+      CREATE TABLE `trainers` (
+      `name` varchar(20) NOT NULL,
       `nickname` varchar(8) NOT NULL,
-      `senha` varchar(100) NOT NULL,
+      `password` varchar(100) NOT NULL,
       PRIMARY KEY (`nickname`)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;''')
 

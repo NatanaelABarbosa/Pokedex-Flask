@@ -5,7 +5,7 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Nome</th>
-                    <th scope="col">Tipo</th>
+                    <th scope="col">Tipos</th>
                     <th scope="col">Habilidade</th>
                     <th scope="col">Ações</th>
                 </tr>
@@ -13,11 +13,16 @@
             <tbody>
                 {% for pokemon in pokemons %}
                     <tr>
-                        <td>{{ pokemon.nome }}</td>
-                        <td>{{ pokemon.tipo }}</td>
-                        <td>{{ pokemon.abilidade }}</td>
-                        <td> 
-                            <a class="btn btn-primary" href="{{ url_for('edit', id=pokemon.id) }}">E</a>
+                        <td>{{ pokemon.name }}</td>
+                        <td>{{ pokemon.type_1 }}, {{ pokemon.type_2 }}</td>
+                        <td>{{ pokemon.ability }}</td>
+                        <td class="d-flex"> 
+                            <a class="btn btn-primary me-2" href="{{ url_for('edit', id=pokemon.id) }}">E</a>
+                            <form method="POST" action="{{ url_for('delete', id=pokemon.id) }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-danger" type="submit">X</button>
+                            </form>
                         </td>
                     </tr>
                 {% endfor %}
