@@ -1,0 +1,2 @@
+from .pokedex_repository import PokedexRepository
+from .trainers_repository import TrainersRepository

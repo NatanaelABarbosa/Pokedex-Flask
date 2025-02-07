@@ -1,8 +1,18 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField
+from wtforms import StringField, SelectField, IntegerField
 from wtforms.validators import DataRequired, Length
 
-class PokedexForm(FlaskForm):
+class BaseStatusForm(FlaskForm):
+    
+    def status_validators(): 
+        return IntegerField(
+            validators=[
+                DataRequired(),
+                Length(min=1, max=3)
+            ]
+        ) 
+
+class PokedexForm(BaseStatusForm):
     name = StringField(
         "Nome",
         validators=[DataRequired(), Length(min=1, max=50)]
@@ -63,3 +73,11 @@ class PokedexForm(FlaskForm):
         ],
         validators=[DataRequired()]
     )
+    
+    hp = BaseStatusForm.status_validators()
+    atk = BaseStatusForm.status_validators()
+    def_ = BaseStatusForm.status_validators()
+    spatk = BaseStatusForm.status_validators()
+    spdef = BaseStatusForm.status_validators()
+    spd = BaseStatusForm.status_validators()
+    

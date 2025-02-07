@@ -17,7 +17,7 @@ class PokedexRepository:
             
             db.session.add(pokemon)
             db.session.commit()
-            return True
+            return pokemon
         except:
             return False
     
@@ -30,7 +30,7 @@ class PokedexRepository:
             pokemon.ability = data['ability']
             
             db.session.commit()
-            return True
+            return 
         except:
             return False
     
