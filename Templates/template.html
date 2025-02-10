@@ -10,12 +10,16 @@
 </head>
 <body class="bg-light text-center">
     <nav class="container bg-light p-3 d-flex justify-content-between">
-        <a href="{{ url_for('register_form') if session['usuario'] is none else url_for('logout') }}">
-            {{ 'Registrar' if session['usuario'] is none else 'Logout' }}
-        </a>
-        <a href="{{ url_for('login_form') }}">
-            {{ 'login' if session['usuario'] is none else '' }}
-        </a>
+        <a href="{{ url_for('index' )}}">Home</a>
+        
+        <div class="d-flex gap-3">
+            <a href="{{ url_for('register_form') if session['usuario'] is none else url_for('logout') }}">
+                {{ 'Registrar' if session['usuario'] is none else 'Logout' }}
+            </a>
+            <a href="{{ url_for('login_form') }}">
+                {{ 'login' if session['usuario'] is none else '' }}
+            </a>
+        </div>
     </nav>
     <div class="container mt-5">
         <h1 class="mb-4"> {{ title }}</h1>

@@ -1,10 +1,9 @@
 from main import app
 from models.trainers import Trainers
-from flask import request, redirect, render_template, url_for, flash, send_from_directory
+from flask import request, redirect, session, render_template, url_for, flash, send_from_directory
 from form import PokedexForm, LoginForm, RegisterForm
 from repository import PokedexRepository, TrainersRepository
 from helpers import get_image, remove_image
-from models.status import Status
 import time
 
 @app.route('/')
@@ -15,8 +14,7 @@ def index():
 @app.route('/pokemon/<id>')
 def show_status(id):
     pokemon = PokedexRepository.search(id)
-    status = Status.query.filter_by(pokemon_id=id).first()
-    print(status)
+    status = PokedexRepository.getStatus(id)
     
     return render_template('status.html', title=pokemon.name, pokemon=pokemon, status=status)
 
@@ -24,6 +22,10 @@ def show_status(id):
 def create():
     form = PokedexForm()
 
+    if not session['usuario']:
+        flash('Faça login para entrar nessa página!')
+        return redirect(url_for('login', proxima=url_for('create')))
+    
     return render_template('add.html', title="Adicionar Pokemon", form=form)
 
 @app.route('/add', methods=['POST'])
@@ -39,23 +41,38 @@ def store():
     
     pokemon = PokedexRepository.create(data, status)
     
-    image = request.files['image']
-    upload_path = app.config['UPLOAD_PATH']
-    timestamp = time.time()
-    image.save(f'{upload_path}/capa_{pokemon.id}-{timestamp}.jpg')
     
+    image = request.files['image']
+    if (image):
+        upload_path = app.config['UPLOAD_PATH']
+        timestamp = time.time()
+        image.save(f'{upload_path}/capa_{pokemon.id}-{timestamp}.jpg')
+        
     return redirect(url_for('index'))
 
 @app.route('/edit/<int:id>')
 def edit(id):
     form = PokedexForm()
     
+    if not session['usuario']:
+        flash('Faça login para entrar nessa página!')
+        return redirect(url_for('login', proxima=url_for('edit', id=id)))
+    
     pokemon = PokedexRepository.search(id)
+    status = PokedexRepository.getStatus(id)
     
     form.name.data = pokemon.name
     form.type_1.data = pokemon.type_1
     form.type_2.data = pokemon.type_2
     form.ability.data = pokemon.ability
+
+    form.hp.data = status.hp
+    form.atk.data = status.atk
+    form.def_.data = status.def_
+    form.spatk.data = status.spatk
+    form.spdef.data = status.spdef
+    form.spd.data = status.spd
+    
     image = get_image(id)
 
     return render_template('edit.html', title="Adicionar Pokemon", form=form, id=id, image=image)
@@ -72,30 +89,37 @@ def update():
         return redirect(url_for('index')) 
     
     pokemon = PokedexRepository.search(request.form['id'])
+    status = PokedexRepository.getStatus(pokemon.id)
     data = getData(form)
-    status = getStatus(form)
+    status_dict = getStatus(form)
     
-    PokedexRepository.update(pokemon, data, status)
+    PokedexRepository.update(pokemon, status, data, status_dict)
     
-    remove_image(pokemon.id)
     image = request.files['image']
-    upload_path = app.config['UPLOAD_PATH']
-    timestamp = time.time()
-    image.save(f'{upload_path}/capa_{pokemon.id}-{timestamp}.jpg')
+    
+    if image:
+        remove_image(pokemon.id)
+        upload_path = app.config['UPLOAD_PATH']
+        timestamp = time.time()
+        image.save(f'{upload_path}/capa_{pokemon.id}-{timestamp}.jpg')
     
     flash(f'Pokemon {pokemon.name} editado com sucesso')
     return redirect(url_for('index'))
     
 @app.route('/delete/<int:id>', methods=['POST'])
 def delete(id: int):
+        if not session['usuario']:
+            flash('Faça log-in para liberar um pokemon!')
+            return redirect(url_for('login'))
+    
         if request.form.get('_method') != 'DELETE':
-            flash('Erro ao deletar arquivo')
+            flash('Erro ao liberar pokemon!')
             return redirect(url_for('index')) 
         
         pokemon_name = PokedexRepository.search(id).name
         PokedexRepository.delete(id)
     
-        flash(f'Pokemon {pokemon_name} removido com sucesso!')
+        flash(f'Pokemon {pokemon_name} liberado com sucesso!')
         return redirect(url_for('index'))
     
 
@@ -147,10 +171,15 @@ def register():
 def login_form():
     form = LoginForm()
     
-    return render_template('login.html', title="Faça seu login", form=form)
+    proxima = '/'
+    if request.args.get('proxima'):
+        proxima = request.args.get('proxima')
+    
+    return render_template('login.html', title="Faça seu login", form=form, proxima=proxima)
 
 @app.route('/login', methods=['POST'])
 def login():
+    
     form = LoginForm(request.form)
     trainers_repo = TrainersRepository()
     
@@ -170,7 +199,7 @@ def login():
     trainers_repo.login(nickname)
     
     flash(f'Usuário {nickname} logado com sucesso!')
-    return redirect(url_for('index'))
+    return redirect(request.form.get('proxima'))
 
 @app.route('/logout')
 def logout():

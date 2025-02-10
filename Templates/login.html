@@ -2,6 +2,7 @@
 {% block content %}
     <form id="pokemonForm" method="POST">
         {{ form.csrf_token() }}
+        <input type="hidden" name="proxima" value="{{ proxima }}">
         <div class="mb-3">
             {{ form.nickname.label(class="form-label") }}
             {{ form.nickname(class="form-control") }}

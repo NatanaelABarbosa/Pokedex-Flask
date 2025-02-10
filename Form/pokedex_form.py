@@ -49,7 +49,7 @@ class PokedexForm(BaseStatusForm):
     )
         
     type_2 = SelectField(
-        'Tipo 2 do Pokémon',
+        'Tipo Secundário do Pokémon',
         choices = [
             (None, 'Nulo'),
             ('Fogo', 'Fogo'),
