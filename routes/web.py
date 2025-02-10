@@ -4,12 +4,21 @@ from flask import request, redirect, render_template, url_for, flash, send_from_
 from form import PokedexForm, LoginForm, RegisterForm
 from repository import PokedexRepository, TrainersRepository
 from helpers import get_image, remove_image
+from models.status import Status
 import time
 
 @app.route('/')
 def index():
     pokemons = PokedexRepository.searchAll()
     return render_template('pokedex.html', title="Pokemons capturados", pokemons=pokemons)
+
+@app.route('/pokemon/<id>')
+def show_status(id):
+    pokemon = PokedexRepository.search(id)
+    status = Status.query.filter_by(pokemon_id=id).first()
+    print(status)
+    
+    return render_template('status.html', title=pokemon.name, pokemon=pokemon, status=status)
 
 @app.route('/add')
 def create():
@@ -99,7 +108,14 @@ def getData(form: PokedexForm):
     }
     
 def getStatus(form: PokedexForm):
-    return {}
+    return {
+        'hp': form.hp.data,
+        'atk': form.atk.data,
+        'def': form.def_.data,
+        'spatk': form.spatk.data,
+        'spdef': form.spdef.data,
+        'spd': form.spd.data
+    }
 
 @app.route('/register')
 def register_form():

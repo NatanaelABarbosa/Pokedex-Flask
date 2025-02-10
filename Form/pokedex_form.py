@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, IntegerField
-from wtforms.validators import DataRequired, Length
+from wtforms.validators import DataRequired, Length, NumberRange
 
 class BaseStatusForm(FlaskForm):
     
@@ -8,7 +8,7 @@ class BaseStatusForm(FlaskForm):
         return IntegerField(
             validators=[
                 DataRequired(),
-                Length(min=1, max=3)
+                NumberRange(min=1, max=999)
             ]
         ) 
 

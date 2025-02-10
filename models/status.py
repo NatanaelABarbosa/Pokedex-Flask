@@ -1,4 +1,5 @@
 from main import db
+from models.pokedex import Pokedex
 
 class Status(db.Model):
     __tablename__ = "pokemon_status"
@@ -12,5 +13,4 @@ class Status(db.Model):
     spdef = db.Column(db.Integer, nullable=False)
     spd = db.Column(db.Integer, nullable=False)
 
-    # Relacionamento com a tabela pokedex
-    pokemon = db.relationship("Pokemon", back_populates="status")
+    pokemon = db.relationship("Pokedex", back_populates="status")

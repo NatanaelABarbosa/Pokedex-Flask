@@ -17,7 +17,8 @@
                         <td>{{ pokemon.type_1 }}, {{ pokemon.type_2 }}</td>
                         <td>{{ pokemon.ability }}</td>
                         <td class="d-flex"> 
-                            <a class="btn btn-primary me-2" href="{{ url_for('edit', id=pokemon.id) }}">E</a>
+                            <a class="btn btn-primary me-2" href="{{ url_for('show_status', id=pokemon.id) }}">Ver status</a>
+                            <a class="btn btn-dark me-2" href="{{ url_for('edit', id=pokemon.id) }}">E</a>
                             <form method="POST" action="{{ url_for('delete', id=pokemon.id) }}">
                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="_method" value="DELETE">

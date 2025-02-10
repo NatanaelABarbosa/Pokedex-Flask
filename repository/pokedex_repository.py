@@ -1,5 +1,6 @@
 from main import db
 from models.pokedex import Pokedex
+from models.status import Status
 
 class PokedexRepository:
     @staticmethod
@@ -16,6 +17,19 @@ class PokedexRepository:
             pokemon = Pokedex(name=data['name'], type_1=data['type_1'], type_2=data['type_2'], ability=data['ability'])
             
             db.session.add(pokemon)
+            db.session.commit()
+            
+            status_pokemon = Status(
+                pokemon=pokemon,
+                hp=status['hp'],
+                atk=status['atk'],
+                def_=status['def'],
+                spatk=status['spatk'],
+                spdef=status['spdef'],
+                spd=status['spd'],
+            )
+
+            db.session.add(status_pokemon)
             db.session.commit()
             return pokemon
         except:
