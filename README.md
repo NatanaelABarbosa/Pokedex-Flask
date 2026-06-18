@@ -55,4 +55,4 @@ O objetivo deste projeto é praticar o desenvolvimento de aplicações web utili
 
 ## Autor
 
-Natanael Barbosa
+Natanael Leandro Alves Barbosa
