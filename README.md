@@ -1,6 +1,6 @@
 # Pokédex Flask
 
-Projeto desenvolvido para a disciplina da faculdade utilizando Python e Flask. A aplicação consome dados da PokéAPI para exibir informações sobre Pokémon de forma simples e intuitiva.
+Projeto desenvolvido com o intuito de melhorar minhas habilidades em back-end (Python com Flask) e banco de dados.
 
 ## Funcionalidades
 
